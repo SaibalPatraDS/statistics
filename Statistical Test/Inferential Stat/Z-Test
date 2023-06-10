@@ -1,1 +1,113 @@
+Question 1 : The average or mean is 3.1 hours and the standard deviation is 0.5. Find the percentage of less than 3.5 hours.
 
+Hint -
+
+z = (x - x')/o
+where, x = sample points x' = sample mean o = sample variation
+
+## importing necessary libraries
+​
+import pandas as pd 
+import numpy as np 
+from scipy import stats
+## calculating z score
+​
+mean_ = 3.1 
+stddev_ = 0.5 
+​
+z_score = (3.5 - mean_)/stddev_
+​
+z_score
+0.7999999999999998
+## calculating area
+​
+stats.norm.cdf(z_score)  # norm - normal distribution
+                         # cdf - cumulative distribution function
+0.7881446014166033
+Conclusion -
+78.81% percentage of area is under 3.5 hours.
+
+​
+Question 2 : The average or mean is 28 lb and the standard deviation is 2 lb. Find the percentage btw 27 lb and 31 lb.
+
+Hint -
+
+calculate z1 for 27 lb and z2 at the value of 31 lb. And the area between them will be the answer.
+
+mean_ = 28 
+stddev_ = 2 
+​
+sample1 = 27 
+sample2 = 31
+z_score1 = (sample1 - mean_)/stddev_
+z_score2 = (sample2 - mean_)/stddev_
+z_score1, z_score2
+(-0.5, 1.5)
+## calculating underline area
+​
+area_percent = stats.norm.cdf(z_score2) - stats.norm.cdf(z_score1)
+area_percent
+0.624655260005155
+Conclusion -
+62.47% percentage of area is between 27 lb and 31 lb.
+
+​
+Question 3 : In top 10%, the mean is 200 and the standard deviation is 20. Find the lowest possible score to qualify.
+
+Hint -
+
+Our confidence interval is given and that is 10% or 0.10. And the mean of the sample is 200 and standard deviation is 20.
+
+So, sample_point, x = z_score * standard_deviation + mean and this sample_point will be minimum value/ min score to qualify.
+
+mean_ = 200 
+stddev_ = 20 
+​
+z_score_ = stats.norm.ppf(0.90) # ppf - probability point function
+​
+'''The Probability Point Function or PPF is the inverse of the CDF. 
+Specifically, the PPF returns the exact point where the probability of everything to the left is equal to y .'''
+z_score_
+1.2815515655446004
+## calculating the terminal point
+​
+sample_point = z_score_ * stddev_ + mean_
+sample_point
+225.631031310892
+Conclusion -
+Lowest possible score is 226 or the student has to score 226 to be in top 10%
+
+​
+Question 4 : To select the middle 60% of the population, the mean is 120 and the standard deviation is 8. Find the upper and lower values.
+
+Hint -
+
+Simple calculation, we have to select the middle 60% means there will be 20% to the left and 20% to the right of the selected region. We have find z_score for 20% or 0.20 confidence and z_score for 80% or 0.80 confidence intervel.
+
+z_score_20 = stats.norm.ppf(0.20) // z_score for ist 20%
+
+z_score_80 = stats.norm.ppf(0.80) // z_score for 80%
+
+And next formula we will be using, sample_point = z_score * standard_deviation + mean
+
+mean_ = 120
+stddev_ = 8
+​
+z_score_20 = stats.norm.ppf(0.20)
+z_score_80 = stats.norm.ppf(0.80)
+​
+z_score_20, z_score_80
+(-0.8416212335729142, 0.8416212335729143)
+## calculating lower and upper value of the range
+​
+lower_val = (z_score_20 * stddev_) + mean_
+upper_val = (z_score_80 * stddev_) + mean_
+​
+lower_val, upper_val
+(113.26703013141669, 126.73296986858331)
+print("Range of values for selecting 60% only", lower_val, "< X <", upper_val)
+Range of values for selecting 60% only 113.26703013141669 < X < 126.73296986858331
+Conclusion -
+To select the middle 60%, lower limit will be 113.267 and upper limit will be 126.7329
+
+**(113.26703013141669 < X < 126.73296986858331)
